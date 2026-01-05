@@ -116,6 +116,7 @@
     }
 
     .container{max-width:var(--max); margin:0 auto; padding:18px 16px 26px}
+
     .hero{
       background:linear-gradient(135deg, rgba(255,212,0,.10), rgba(255,255,255,.02) 45%, rgba(255,212,0,.08));
       border:1px solid rgba(255,212,0,.22);
@@ -136,22 +137,37 @@
         radial-gradient(900px 420px at 30% 20%, rgba(255,212,0,.14), rgba(0,0,0,0) 60%),
         linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.15));
     }
-    .hero-kicker{font-weight:900; color:rgba(255,255,255,.80); letter-spacing:.4px}
-    .hero-h1{
+
+    /* ✅ FIX: H1 is now a real H1 and includes intent keywords */
+    h1.hero-h1{
       margin:10px 0 0;
-      font-size:38px; line-height:1.05;
+      font-size:34px;
+      line-height:1.08;
       letter-spacing:.2px;
-      text-transform:uppercase;
       font-weight:1000;
+      text-transform:uppercase;
     }
-    .hero-h1 span{color:var(--yellow)}
+    h1.hero-h1 span{color:var(--yellow)}
+
+    .hero-kicker{font-weight:900; color:rgba(255,255,255,.80); letter-spacing:.4px}
     .hero-sub{
-      margin:12px 0 0;
+      margin:10px 0 0;
       color:rgba(255,255,255,.78);
-      max-width:56ch;
+      max-width:60ch;
       line-height:1.55;
       font-size:14px;
     }
+
+    /* ✅ Bonus line moved to non-H1 element (SEO-safe) */
+    .hero-bonus{
+      margin:12px 0 0;
+      font-weight:1000;
+      letter-spacing:.2px;
+      color:rgba(255,255,255,.92);
+      font-size:16px;
+    }
+    .hero-bonus span{color:var(--yellow)}
+
     .hero-ctas{margin-top:16px; display:flex; gap:10px; flex-wrap:wrap}
     .hero-note{margin-top:10px; font-size:12px; color:rgba(255,255,255,.62)}
     .hero-right{
@@ -160,10 +176,24 @@
       padding:14px;
       position:relative;
     }
+
+    /* ✅ FIX: make hero image always fit container nicely */
+    .hero-right .hero-imgwrap{
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:22px;
+      overflow:hidden;
+      background:rgba(0,0,0,.10);
+    }
     .hero-right img{
-      width:min(320px, 92%);
-      aspect-ratio:1/1;
-      object-fit:contain;
+      width:100%;
+      height:100%;
+      max-height:320px;
+      object-fit:contain; /* keeps whole cat visible */
+      padding:10px;
       filter: drop-shadow(0 20px 30px rgba(0,0,0,.35));
     }
     .hero-right .img-fallback{
@@ -297,11 +327,12 @@
     @media (max-width: 980px){
       .sidebar{display:none}
       .hero-grid{grid-template-columns:1fr}
-      .hero-h1{font-size:32px}
+      h1.hero-h1{font-size:28px}
       .grid3{grid-template-columns:1fr}
       .foot{grid-template-columns:1fr}
       .rg-logos{justify-content:flex-start}
       .mini-nav{display:none}
+      .hero-right img{max-height:260px}
     }
   </style>
 </head>
@@ -371,7 +402,8 @@
 
           <div class="top-actions">
             <a class="btn ghost" href="#search" aria-label="Suche">🔍</a>
-            <a class="btn ghost" href="#login" rel="nofollow">Einloggen</a>
+            <!-- ✅ keyword placement via visible label -->
+            <a class="btn ghost" href="#login" rel="nofollow">Cat Spins Casino Login</a>
             <a class="btn yellow" href="#download">Registrieren</a>
           </div>
         </div>
@@ -382,11 +414,18 @@
         <section class="hero" id="casino" aria-label="Cat Spins Casino App">
           <div class="hero-grid">
             <div class="hero-left">
-              <div class="hero-kicker">Willkommensbonus</div>
-              <div class="hero-h1">
-                <span>200%</span> bis zu <span>5.000 €</span><br />
-                + 10% wöchentlicher Cashback
+              <div class="hero-kicker">Mobile Übersicht (18+)</div>
+
+              <!-- ✅ NEW: real H1 with SEO keywords -->
+              <h1 class="hero-h1">
+                <span>Cat Spins</span> Casino App – Bonus, Login & Download
+              </h1>
+
+              <!-- ✅ NEW: bonus line moved below H1 -->
+              <div class="hero-bonus">
+                Willkommensbonus: <span>200%</span> bis <span>5.000 €</span> + 10% wöchentlicher Cashback
               </div>
+
               <p class="hero-sub">
                 Die <strong>Cat Spins Casino App</strong> bringt Slots, Live-Casino und Sportwetten auf Android & iOS.
                 Hier finden Sie eine kompakte, neutrale Übersicht: Bonusbedingungen, Spieleauswahl, mobile Zahlungen und Sicherheitsfeatures.
@@ -399,9 +438,9 @@
 
               <div class="tagrow" aria-label="SEO-Themen">
                 <span class="tag">Cat Spins Casino App</span>
+                <span class="tag">Cat Spins Casino Login</span>
                 <span class="tag">App Download</span>
                 <span class="tag">Bonus & Cashback</span>
-                <span class="tag">Zahlungsmethoden</span>
                 <span class="tag">Android / iOS</span>
               </div>
 
@@ -411,8 +450,10 @@
             </div>
 
             <div class="hero-right" aria-label="Hero Bild">
-              <img src="/images/hero-cat.png" alt="Cat Spins Maskottchen" loading="lazy"
-                   onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <div class="hero-imgwrap">
+                <img src="/images/hero-cat.png" alt="Cat Spins Maskottchen" loading="lazy"
+                     onerror="this.style.display='none'; this.parentElement.nextElementSibling.style.display='block';">
+              </div>
               <div class="img-fallback">Bild fehlt: <strong>/images/hero-cat.png</strong></div>
             </div>
           </div>
@@ -721,6 +762,13 @@
               <summary>Wie kann ich die Cat Spins Casino App herunterladen? <span>▾</span></summary>
               <div class="ans">
                 Öffnen Sie den App Store (iOS) oder Google Play (Android), suchen Sie nach „Cat Spins Casino“ und installieren Sie die offizielle App. Alternativ kann eine mobile Website ohne Download verfügbar sein.
+              </div>
+            </details>
+
+            <details id="login">
+              <summary>Wie funktioniert der Cat Spins Casino Login? <span>▾</span></summary>
+              <div class="ans">
+                Tippen Sie in der App oder auf der mobilen Website auf „Einloggen“, geben Sie Ihre Daten ein und bestätigen Sie ggf. per Sicherheitsmethode (z. B. Code/2FA, falls verfügbar).
               </div>
             </details>
 
